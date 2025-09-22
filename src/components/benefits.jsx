@@ -1,6 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+/* ========= Cores ========= */
+const ORANGE = "#FD4F0D";
+const ORANGE_SOFT = "rgba(253, 79, 13, 0.6)";
+
 /* ========= Animações ========= */
 const popIn = {
   hidden: { opacity: 0, y: 20 },
@@ -13,85 +17,87 @@ const popIn = {
 
 const gridVariants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.08, when: "beforeChildren" },
-  },
+  show: { transition: { staggerChildren: 0.08, when: "beforeChildren" } },
 };
 
 const hoverFx = { y: -6, scale: 1.02 };
 const tapFx = { scale: 0.98 };
 
-/* ========= Card “benefício” (amarelo grande) ========= */
-const Card = ({ item, index }) => (
-  <motion.div
-    variants={popIn}
-    initial="hidden"
-    whileInView="show"
-    custom={index}
-    viewport={{ once: true, margin: "-60px" }} // aparece ao descer a página
-    whileHover={hoverFx}
-    whileTap={tapFx}
-    className="
-      w-[320px] h-[220px] p-4 
-      md:w-[344px] md:h-[240px] md:p-5
-      rounded-2xl text-center shadow-lg hover:shadow-xl transition-shadow duration-300
-      flex flex-col items-center
-    "
-    style={{ backgroundColor: "#F2EA86" }}
-  >
-    <div className="mb-2 md:mb-3">
-      <img
-        src={item.iconSrc}
-        alt={item.title}
-        className="w-11 h-11 md:w-10 md:h-10 object-contain" // mobile ícone MAIOR
-        loading="lazy"
-      />
-    </div>
+/* ========= Card ========= */
+const Card = ({ item, index }) => {
+  const isAlimentacao = item.id === "alimentacao";
 
-    <h3
-      className="text-lg md:text-2xl font-bold mb-1 md:mb-2"
-      style={{ color: "#FD4F0D", fontFamily: '"Work Sans", sans-serif' }}
+  return (
+    <motion.div
+      variants={popIn}
+      initial="hidden"
+      whileInView="show"
+      custom={index}
+      viewport={{ once: true, margin: "-60px" }}
+      whileHover={hoverFx}
+      whileTap={tapFx}
+      className={`w-[320px] p-4 rounded-2xl text-center shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center
+        ${isAlimentacao ? "h-[280px]" : "h-[220px]"}  md:w-[344px] md:h-[240px] md:p-4`}
+      style={{ backgroundColor: "#F2EA86" }}
     >
-      {item.title}
-    </h3>
+      <div className="mb-2 md:mb-2">
+        <img
+          src={item.iconSrc}
+          alt={typeof item.title === "string" ? item.title : "benefício"}
+          className="w-11 h-11 md:w-14 md:h-10 object-contain"
+        />
+      </div>
 
-    <p
-      className="
-        text-[12.5px] leading-[1.15] tracking-[-0.01em]
-        md:text-[13.5px] md:leading-[1.18]
-      "
-      style={{ color: "#222223", fontFamily: '"Roboto Mono", monospace' }}
-    >
-      {item.description}
-    </p>
-  </motion.div>
-);
+      <h3
+        className="mb-3 font-extrabold text-[30px] leading-[1.05]"
+        style={{ color: ORANGE, fontFamily: '"Work Sans", sans-serif' }}
+      >
+        {item.title}
+      </h3>
+
+      <p
+        className="text-[12px] leading-[1.15] md:text-[12px] md:leading-[1.18]"
+        style={{ color: "#222223", fontFamily: '"Roboto Mono", monospace' }}
+      >
+        {item.description}
+      </p>
+    </motion.div>
+  );
+};
 
 const Benefits = () => {
-  const benefits = [
-    {
+  // Itens individuais (com id único)
+  const items = {
+    passagem: {
+      id: "passagem",
       iconSrc: "/img/beneficios/passagem-aerea.png",
-      title: "Passagem Aérea",
+      title: (
+        <>
+          Passagem <br /> Aérea
+        </>
+      ),
       description: (
         <>
-          Brasil / Cusco / Brasil.
+          Brasil / Calama / Brasil.
           <br />
-          <strong>Saídas de:</strong> POA/GRU/CWB/FLN/CNF/CGB/CGR.
+          Saídas de:
+          <br />
+          BH/POA/GRU/CWB/FLN;
         </>
       ),
     },
-    {
+    hospedagem: {
+      id: "hospedagem",
       iconSrc: "/img/beneficios/hospedagem.png",
       title: "Hospedagem",
       description: (
         <>
-          5 noites em Cusco
-          <br />
-          1 noite em Águas Calientes.
+          5 noites em San Pedro do Atacama.
         </>
       ),
     },
-    {
+    assistencia: {
+      id: "assistencia",
       iconSrc: "/img/beneficios/assistencia.png",
       title: "Assistência",
       description: (
@@ -102,46 +108,90 @@ const Benefits = () => {
         </>
       ),
     },
-    {
-      iconSrc: "/img/beneficios/passeios.png",
-      title: "Passeios",
-      description: (
-        <>
-          Excursão Machu Picchu com trem;
-          <br />
-          Excursão ao vale sagrado dos Incas;
-          <br />
-          Trilha pela montanha Arco-Íris;
-          <br />
-          Excursão à lagoa Humantay.
-        </>
-      ),
-    },
-    {
+    alimentacao: {
+      id: "alimentacao",
       iconSrc: "/img/beneficios/alimentacao.png",
       title: "Alimentação",
       description: (
         <>
-          Café da manhã nos hotéis e nos
+          <strong>Café da manhã nos hotéis.</strong>
           <br />
-          passeios Montanha Arco-Íris e Lagoa Humantay. Almoço nos passeios Vale
-          Sagrado, Montanha Arco-Íris e Lagoa Humantay.
+          - O passeio de Piedras Rojas:
+          <br />
+          inclui café da manhã e almoço.
+          <br />
+          - Tour astronômico e passeio
+          <br />
+          Vallecito inclui snacks.
+          <br />
+          - O passeio das Lagunas de Baltinache 
+          <br />
+          inclui café da manhã se o tour for de manhã
+          <br />
+          ou snacks se o passeio for à tarde.
         </>
       ),
     },
-    {
-      iconSrc: "/img/beneficios/franquia-bagagem.png",
-      title: "Franquia de Bagagem",
+    passeios: {
+      id: "passeios",
+      iconSrc: "/img/beneficios/passeios.png",
+      title: "Passeios",
+      description: (
+        <>
+          - Tour Astronômico;
+          <br />
+          - Passeio Vallecito;
+          <br />
+          - Passeio Pedras Rojas e 
+          <br />
+          Lagunas Altiplânicas;
+          <br />
+          - Lagunas Escondidas de Baltinache;
+        </>
+      ),
+    },
+    transfer: {
+      id: "transfer",
+      iconSrc: "/img/beneficios/transfer.png",
+      title: "Transfer",
+      description: (
+        <>
+          Transfer do aeroporto de
+          <br />
+          Calama até o hotel em San
+          <br />
+          Pedro, e do hotel de San
+          <br />
+          Pedro ao aeroporto de
+          <br />
+          Calama;
+        </>
+      ),
+    },
+    franquia: {
+      id: "franquia",
+      iconSrc: "/img/beneficios/bagagem.png",
+      title: (
+        <>
+          Franquia de <br /> Bagagem
+        </>
+      ),
       description: (
         <>
           1 Item pessoal;
-          <br />1 Bagagem de mão até 10Kg.
+          <br />
+          1 Bagagem de mão até 10Kg.
         </>
       ),
     },
-    {
+    semPreocupacao: {
+      id: "semPreocupacao",
       iconSrc: "/img/beneficios/sem-preocupacao.png",
-      title: "Viagem sem Preocupação",
+      title: (
+        <>
+          Viaje sem <br /> Preocupação
+        </>
+      ),
       description: (
         <>
           Preenchimento de formulários
@@ -150,9 +200,14 @@ const Benefits = () => {
         </>
       ),
     },
-    {
+    seguro: {
+      id: "seguro",
       iconSrc: "/img/beneficios/seguro-viagem.png",
-      title: "Seguro Viagem",
+      title: (
+        <>
+          Seguro <br /> Viagem
+        </>
+      ),
       description: (
         <>
           Plano de $ 15.000 para
@@ -161,130 +216,181 @@ const Benefits = () => {
         </>
       ),
     },
-  ];
+  };
 
-  const notIncluded = [
-    {
-      text:
-        "Passeios não descritos / Ingressos Vale Sagrado, Montanha Arco Íris e Lagoa Humantay (140 soles)",
-      iconSrc: "/img/beneficios/padlock.png",
-    },
-    {
-      text: "Demais serviços não descritos",
-      iconSrc: "/img/beneficios/Group.png",
-    },
+  // Ordem (3x3) — e deduplicação defensiva por id
+  const benefitsOrdered = [
+    items.passagem,
+    items.hospedagem,
+    items.assistencia,
+    items.alimentacao,
+    items.passeios,
+    items.transfer,
+    items.franquia,
+    items.semPreocupacao,
+    items.seguro,
   ];
+  const seen = new Set();
+  const benefitsUnique = benefitsOrdered.filter((it) => {
+    if (seen.has(it.id)) return false;
+    seen.add(it.id);
+    return true;
+  });
+
+  // imagens (desktop e mobile)
+  const srcDesktop = "/img/imagembenefits.png";
+  const srcMobile = "/img/imagembenefitsmobile.png";
 
   return (
     <section
       id="viagem"
       className="py-12 md:py-16"
-      style={{
-        backgroundColor: "#F9F2E1",
-        fontFamily: '"Roboto Mono", monospace',
-      }}
+      style={{ backgroundColor: "#A0D3F1", fontFamily: '"Roboto Mono", monospace' }}
     >
       <div className="container">
-        {/* Cabeçalho com suavização de tracking e line-height */}
+        {/* Linha laranja ACIMA da imagem (suave) */}
+        <div className="flex justify-center mb-6">
+          <div
+            style={{
+              width: 1250,
+              maxWidth: "100%",
+              height: 2,
+              backgroundColor: "rgba(253, 79, 13, 0.4)",
+              borderRadius: 2,
+            }}
+          />
+        </div>
+
+        {/* Imagem topo */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 md:mb-10"
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-6 md:mb-8"
+          style={{ width: 870, height: 344, maxWidth: "100%" }}
         >
-          <p
-            className="
-              mb-3 md:mb-4
-              text-[18px] md:text-xl
-              leading-[1.24] md:leading-[1.25]
-              tracking-[-0.005em]
-              break-normal whitespace-normal hyphens-none
-            "
-            style={{ color: "#222223", fontFamily: '"Work Sans", sans-serif' }}
-          >
-            <strong>
-              A sua melhor experiência de viagem
-              <br />
-              começa com a escolha certa da agência
-              <br className="hidden md:block" />
-              que irá te acompanhar.
-            </strong>
-          </p>
-
-          <h2
-            className="font-bold text-4xl md:text-5xl mb-3"
-            style={{ color: "#FD4F0D", fontFamily: '"Work Sans", sans-serif' }}
-          >
-            <strong>Viaje com a Mundo Pró!</strong>
-          </h2>
-
-          <p
-            className="text-[16px] md:text-base leading-[1.15] md:leading-[1.2]"
-            style={{ color: "#222223" }}
-          >
-            Confira o que preparamos para você.
-          </p>
+          <img src={srcDesktop} alt="Atacama — imagem de abertura" className="hidden md:block w-full h-full object-cover rounded-[18px]" />
+          <img src={srcMobile} alt="Atacama — imagem de abertura (mobile)" className="block md:hidden w-full h-auto object-cover rounded-[18px]" />
         </motion.div>
 
-        {/* Grade de benefícios (primeiros 6) */}
+{/* ===== Bloco laranja Duração — CENTRALIZADO ===== */}
+        <div className="w-full flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45 }}
+            className="mb-8 -mt-12 md:mt-0" /* puxa ~12px para cima no mobile; desktop intacto */
+          >
+            <div
+              className="
+                w-[280px] h-[72px] md:w-[345px] md:h-[90px]
+                rounded-2xl flex items-center justify-center gap-3 px-5
+              "
+              style={{ backgroundColor: ORANGE }}
+            >
+              <img src="/img/tempo.png" alt="" className="w-[42px] h-[36px] md:w-[54px] md:h-[44px] object-contain" />
+              <span
+                className="font-extrabold text-[16px] md:text-[28px]"
+                style={{ color: "#FAF3E1", fontFamily: '"Work Sans", sans-serif', lineHeight: 1 }}
+              >
+                Duração: 6 dias
+              </span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* TÍTULO + TEXTO (1) */}
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="text-center text-[35px] md:text-[45px]"
+          style={{ color: ORANGE, fontFamily: '"Work Sans", sans-serif', fontWeight: 800, lineHeight: 1.02 }}
+        >
+          <strong>Viva intensamente o Atacama</strong>
+        </motion.h2>
+
+        {/* MOBILE: quebras de linha visuais */}
+        <div className="block md:hidden mt-3 mb-10 text-center text-[12px]" style={{ color: "#222223", fontFamily: '"Roboto Mono", monospace', lineHeight: 1.35 }}>
+          <p>Nosso pacote de viagem inclui passeios pelas</p>
+          <p>principais paisagens da região, visita a águas</p>
+          <p>termais e contato com a cultura local.</p>
+          <p>A experiência conta com hospedagem confortável</p>
+          <p>e acompanhamento de guias especializados para</p>
+          <p>tornar a viagem mais completa.</p>
+        </div>
+
+        {/* DESKTOP: parágrafo único */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+          className="hidden md:block mt-6 mb-20 text-center text-[18px]"
+          style={{ color: "#222223", fontFamily: '"Roboto Mono", monospace', lineHeight: 1.35 }}
+        >
+          <p>Nosso pacote de viagem inclui passeios pelas principais paisagens</p>
+          <p>da região, visita a águas termais e contato com a cultura local.</p>
+          <p>A experiência conta com hospedagem confortável e acompanhamento</p>
+          <p>de guias especializados para tornar a viagem mais completa.</p>
+        </motion.div>
+
+        {/* LINHA (entre textos) */}
+        <div className="flex justify-center mb-10">
+          <div style={{ width: 1250, maxWidth: "100%", height: 2, backgroundColor: ORANGE_SOFT, borderRadius: 2 }} />
+        </div>
+
+        {/* TÍTULO + TEXTO (2) */}
+        <motion.h3
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="text-center text-[35px] md:text-[45px]"
+          style={{ color: ORANGE, fontFamily: '"Work Sans", sans-serif', fontWeight: 800, lineHeight: 1.02 }}
+        >
+          <strong>Mergulhe na Experiência Atacama</strong>
+        </motion.h3>
+
+        <div className="block md:hidden mt-3 mb-8 text-center text-[12px]" style={{ color: "#222223", fontFamily: '"Roboto Mono", monospace', lineHeight: 1.35 }}>
+          <p>Explore o Atacama sem preocupações!</p>
+          <p>Nosso pacote de viagem exclusivo</p>
+          <p>oferece diversos serviços selecionados</p>
+          <p>para tornar sua viagem incrível!</p>
+        </div>
+
+        <div className="hidden md:block mt-8 mb-10 text-center text-[18px]" style={{ color: "#222223", fontFamily: '"Roboto Mono", monospace', lineHeight: 1.35 }}>
+          <p> Explore o Atacama sem preocupações! Nosso pacote de viagem exclusivo </p>
+          <p> oferece diversos serviços selecionados para tornar sua viagem incrível! </p>
+        </div>
+
+        {/* Grade cards amarelos beneficios */}
         <motion.div
           variants={gridVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="
-            grid grid-cols-1 
-            sm:grid-cols-[repeat(2,320px)] md:sm:grid-cols-[repeat(2,344px)] 
-            lg:grid-cols-[repeat(3,344px)]
-            justify-center 
-            gap-x-3 md:gap-x-4 lg:gap-x-5 
-            gap-y-3 md:gap-y-4 
-            mb-4 md:mb-3
-          "
+          className="max-w-[1040px] mx-auto grid grid-cols-1 md:grid-cols-3 justify-items-center md:justify-items-stretch gap-x-10 md:gap-x-10 gap-y-10 md:gap-y-6 mb-8"
         >
-          {benefits.slice(0, 6).map((item, i) => (
-            <Card key={item.title} item={item} index={i} />
-          ))}
-        </motion.div>
-
-        {/* últimas 2 centralizadas — com MAIS espaço entre elas */}
-        <motion.div
-          variants={gridVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="
-            grid grid-cols-1 
-            sm:grid-cols-[repeat(2,320px)] md:sm:grid-cols-[repeat(2,344px)]
-            justify-center 
-            gap-x-6 md:gap-x-6 lg:gap-x-7   /* mais respiro horizontal */
-            gap-y-6 md:gap-y-6              /* mais respiro vertical no empilhamento */
-            mb-8 md:mb-10
-          "
-        >
-          {benefits.slice(6, 8).map((item, i) => (
-            <Card key={item.title} item={item} index={6 + i} />
+          {benefitsUnique.map((item, i) => (
+            <Card key={item.id} item={item} index={i} />
           ))}
         </motion.div>
 
         {/* Pacote Não Inclui */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }} className="text-center">
           <h3
-            className="text-[20px] md:text-4xl font-bold mb-4 md:mb-6"
-            style={{ color: "#AC0039", fontFamily: '"Work Sans", sans-serif' }}
+            className="mb-4 md:mb-6"
+            style={{ color: "#AC0039", fontFamily: '"Work Sans", sans-serif', fontWeight: 800, fontSize: 45, lineHeight: 1.05 }}
           >
             Pacote Não Inclui
           </h3>
 
           <div className="flex flex-col md:flex-row gap-3 md:gap-6 justify-center items-center max-w-4xl mx-auto">
-            {notIncluded.map((item, index) => (
+            {[
+              { text: "Passeios não descritos", iconSrc: "/img/beneficios/padlock.png" },
+              { text: "Demais serviços", iconSrc: "/img/beneficios/Group.png" },
+            ].map((item, index) => (
               <motion.div
                 key={index}
                 variants={popIn}
@@ -294,25 +400,12 @@ const Benefits = () => {
                 viewport={{ once: true, margin: "-60px" }}
                 whileHover={hoverFx}
                 whileTap={tapFx}
-                className="
-                  w-[320px] h-[120px] p-3
-                  md:w-[344px] md:h-[146px] md:p-4
-                  rounded-2xl shadow-lg flex items-center justify-start text-left
-                "
+                className="w-[320px] h-[120px] p-6 md:w-[344px] md:h-[146px] md:p-4 rounded-2xl shadow-lg flex items-center justify-start text-left"
                 style={{ backgroundColor: "#AC0039" }}
               >
-                <div className="flex items-center gap-2.5 md:gap-3 w-full">
-                  <img
-                    src={item.iconSrc}
-                    alt=""
-                    className="w-6 h-6 md:w-7 md:h-7 object-contain"
-                    loading="lazy"
-                    aria-hidden="true"
-                  />
-                  <p
-                    className="text-[12.5px] md:text-sm font-medium leading-[1.15] md:leading-[1.18] tracking-[-0.01em]"
-                    style={{ color: "#F9F2E1", fontFamily: '"Roboto Mono", monospace' }}
-                  >
+                <div className="flex items-center gap-2.5 md:gap-6 w-full">
+                  <img src={item.iconSrc} alt="" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
+                  <p className="tracking-[-0.01em]" style={{ color: "#F9F2E1", fontFamily: '"Work Sans", sans-serif', fontWeight: 800, fontSize: 20, lineHeight: 1.15 }}>
                     {item.text}
                   </p>
                 </div>

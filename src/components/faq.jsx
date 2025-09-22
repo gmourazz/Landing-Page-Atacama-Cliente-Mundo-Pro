@@ -63,7 +63,7 @@ const FAQ = () => {
             style={{
               fontFamily: '"Work Sans", sans-serif',
               fontWeight: 700,
-              fontSize: '16px',
+              fontSize: '1px',
               color: '#FD4F0D',
               textAlign: 'left',
             }}
@@ -93,7 +93,12 @@ const FAQ = () => {
         'Não, nossa viagem não é em grupo fechado, o que significa que você terá a liberdade de explorar e aproveitar cada momento conforme suas preferências. Durante os passeios, você estará acompanhado por um guia especializado que irá fornecer informações e orientações, garantindo uma experiência enriquecedora.\n\nMuitas clientes já viajaram sozinhas e destacam que se sentiram muito seguras, tanto em Cusco quanto em Machu Picchu. Além disso, nossa equipe e guias estarão sempre prontos para auxiliar em qualquer situação.',
     },
     {
-      question: 'Os ingressos estão inclusos?',
+      question: 'Os ingresso estão inclusos?',
+      answer:
+        'Machu Picchu já inclui ingresso. Não inclui ingresso da Montanha Colorida (30 soles), o Boleto Turístico do Vale Sagrado (90 soles) e o ingresso da Lagoa Humantay (20 soles).',
+    },
+    {
+      question: 'Que dinheiro devo levar?',
       answer:
         'Machu Picchu já inclui ingresso. Não inclui ingresso da Montanha Colorida (30 soles), o Boleto Turístico do Vale Sagrado (90 soles) e o ingresso da Lagoa Humantay (20 soles).',
     },
@@ -103,63 +108,48 @@ const FAQ = () => {
         'Sim! Todos os passeios incluem transporte desde o hotel até o destino visitado. No retorno, os tours costumam finalizar na Plaza de Armas, o coração de Cusco.',
     },
     {
-      question: 'Qual o gasto médio com alimentação?',
+      question: 'O pacote inclui transfer do aeroporto ao hotel?',
       answer:
         'Os gastos diários variam. Em média, considere 100 a 150 soles por dia (aprox. R$ 130 a R$ 200).',
     },
     {
-      question: 'Qual é a melhor época do ano para visitar o Peru?',
+      question: 'Há alguma restrição de idade para participar das atividades no Deserto do Atacama?',
       answer:
         'A estação seca (maio a setembro) tem clima mais estável e menos chuvas — ideal para passeios e fotos.',
     },
     {
-      question: 'É seguro viajar para o Peru?',
+      question: 'Qual o gasto médio com alimentação?',
       answer:
         'Sim. Com precauções normais, é um destino seguro. Nossa equipe local dá suporte durante a viagem.',
     },
     {
-      question: 'Estou viajando sozinha. Quanto a mais é no quarto single?',
+      question: 'Como funciona o suporte da agência durante a viagem?',
       answer:
         'Viajar sozinha é totalmente possível e seguro no Peru. Se optar por quarto single, o pacote tem um acréscimo de cerca de 10% em relação ao valor por pessoa em quarto duplo.\n\nMuitas clientes já viajaram sozinhas e destacam que se sentiram muito seguras, tanto em Cusco quanto em Machu Picchu. Além disso, nossa equipe e guias estarão sempre prontos para auxiliar em qualquer situação.',
     },
     {
-      question: 'Qual a diferença entre os circuitos de Machu Picchu?',
+      question: 'É possível personalizar o itinerário do pacote de acordo com as preferências do cliente?',
       answer: '__CIRCUITOS__',
     },
     {
-      question: 'Posso estender a viagem ou incluir outros destinos?',
+      question: 'Quais são os documentos necessários para viajar para o Atacama?',
       answer:
         'Sim, podemos aumentar ou diminuir noites no Peru e incluir destinos como Lima.',
     },
     {
-      question: 'Quais documentos preciso levar para o Peru?',
+      question: 'Qual é a melhor época do ano para visitar o Atacama?',
       answer:
         'Passaporte válido ou RG emitido há menos de 10 anos.',
     },
     {
-      question: 'Quais são os métodos de pagamento aceitos?',
+      question: 'Quais são os métodos de pagamento aceitos para o pacote de viagem?',
       answer:
         'Até 10x sem juros no cartão de crédito (consulte condições).',
     },
     {
-      question: 'Há restrição de idade para atividades?',
+      question: 'Mas moro longe da agência, como vou fazer o pagamento?',
       answer:
         'Para crianças pequenas ou idosos com mobilidade reduzida, avalie necessidades/limitações antes de confirmar.',
-    },
-    {
-      question: 'Posso viajar em outro mês ou sair de outra cidade?',
-      answer:
-        'Sim. O pacote foi simulado no mês com melhor tarifa, mas simulamos outras datas e saídas de qualquer cidade do Brasil.',
-    },
-    {
-      question: 'Como funciona o suporte durante a viagem?',
-      answer:
-        'Suporte 24h durante toda a viagem, com equipe pronta para te auxiliar no que precisar.',
-    },
-    {
-      question: 'Moro longe da agência. Como faço o pagamento?',
-      answer:
-        'Atendimento 100% online e seguro — tudo resolvido à distância.',
     },
   ];
 
@@ -167,7 +157,7 @@ const FAQ = () => {
     <section
       id="duvidas"
       className="py-10"
-      style={{ backgroundColor: '#F9F2E1', fontFamily: '"Roboto Mono", monospace' }}
+      style={{ backgroundColor: '#A0D3F1', fontFamily: '"Roboto Mono", monospace' }}
     >
       <div className="mx-auto" style={{ maxWidth: '1280px' }}>
         {/* ===== CABEÇALHO DESKTOP (inalterado) ===== */}

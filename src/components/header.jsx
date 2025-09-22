@@ -14,12 +14,12 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50" style={{ background: "#A0D3F1" }}>
+    <header className="sticky top-0 z-50" style={{ background: "#F0D9D1" }}>
       <div className="relative">
-        <div className="container px-4 md:px-0">
+        <div className="container px-2 md:px-0">
           <div className="flex items-center justify-between py-3 md:py-4">
             {/* LOGO — encostada à esquerda (desktop volta a -ml-20; mobile sem deslocar) */}
-      <div className="flex items-center md:-ml-10"> {/* era md:-ml-20 */}
+      <div className="flex items-center md:-ml-12"> {/* era md:-ml-20 */}
           <img
           src="/img/logomundopro.png"
           alt="Mundo Pró Viagens"

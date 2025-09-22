@@ -26,76 +26,159 @@ const itemVariants = (fromLeft) => ({
   },
 });
 
+/* ====== REMOVE O 7º DIA ====== */
 const days = [
-  { day: '1º DIA', subtitle: 'Chegada em Cusco', body: 'Transfer até o hotel e dia livre em Cusco.', image: '/img/beneficios/primeirodia.png' },
-  { day: '2º DIA', subtitle: 'Cusco – Águas Calientes', body: 'Retirada no hotel de Cusco e início do trajeto de duas horas de ônibus até a estação de trem de Ollantaytambo. Ao chegar, subiremos em um trem e faremos uma viagem de uma hora e meia adentrando a cordilheira dos Andes. Chegada ao povoado de Aguas Calientes, iremos levá-lo ao hotel onde nos hospedaremos essa noite. No resto da tarde, você terá tempo livre.', image: '/img/beneficios/segundodia.png' },
-  { day: '3º DIA', subtitle: 'Machu Picchu – Cusco', body: 'Depois de tomar o café da manhã no hotel, pegaremos o ônibus para viver o ponto alto da viagem: Machu Picchu. Ao chegar lá, faremos uma visita guiada de duas horas. Depois, você terá outras duas horas de tempo livre para percorrer a zona ou subir por conta própria as montanhas Huayna Picchu ou Machu Picchu. A seguir, voltaremos de ônibus a Aguas Calientes, onde você terá tempo para almoçar por conta própria e seguir explorando o pequeno povoado andino. Finalizaremos a excursão voltando de trem até Ollantaytambo e de lá iremos de ônibus ao seu hotel de Cusco.', image: '/img/beneficios/terceirodia.png' },
-  { day: '4º DIA', subtitle: 'Vale Sagrado dos Incas', body: 'Excursão ao Vale Sagrado dos Incas (13 horas). Visitando Chinchero, Moray, Maras, Salinas, Ollantaytambo e Pisac.', image: '/img/beneficios/quartodia.png' },
-  { day: '5º DIA', subtitle: 'Cusco – Trilha pela Montanha Arco-Íris', body: 'Entre 4h e 5h, passaremos para buscá-lo no seu hotel de Cusco para começar esta experiência que será inesquecível. A rota que seguiremos é de dificuldade alta. Recomendamos este tour exclusivamente para pessoas que não tenham problemas cardíacos. O tour é feito em altas altitudes, que alcançam aproximadamente 5.200 metros.', image: '/img/beneficios/quintodia.png' },
-  { day: '6º DIA', subtitle: 'Cusco – Lagoa Humantay', body: 'Nesta excursão à Lagoa Humantay, subiremos a mais de 4.000 metros para visitar um espetáculo da natureza localizado na Cordilheira dos Andes.', image: '/img/beneficios/sextodia.png' },
-  { day: '7º DIA', subtitle: 'Saída Cusco – Brasil', body: 'Em horário previsto, transfer para o aeroporto e volta ao Brasil.', image: '/img/beneficios/setimodia.png' },
+  {
+    day: '1º DIA',
+    subtitle: 'Dia de chegada em Calama. Dia Livre.',
+    body: `Transfer até o hotel e dia livre em San Pedro.`,
+    image: '/img/beneficios/primeirodia.png',
+  },
+  {
+    day: '2º DIA',
+    subtitle: 'Vallecito',
+    body: `Pela tarde, visita ao Vallecito.\nO passeio inclui guia, transporte e piquenique.`,
+    image: '/img/beneficios/segundodia.png',
+  },
+  {
+    day: '3º DIA',
+    subtitle: 'Lagunas Escondidas De Baltinache (de manhã) e Tour Astronômico (à noite)',
+    body: `O passeio leva você a um conjunto de sete lagoas de águas salgadas, com tons azuis transparentes e margens de sal branco. Em duas delas, é possível banho, e a alta concentração de sal permite flutuar com facilidade. O pacote inclui guia, transporte e piquenique. À noite, uma experiência especial permite observar planetas, constelações e fenômenos celestes com telescópios, acompanhados por astrônomos locais, tornando a visita ainda mais memorável.`,
+    image: '/img/beneficios/terceirodia.png',
+  },
+  {
+    day: '4º DIA',
+    subtitle: 'Piedras Rojas e Lagunas Altiplânicas',
+    body: `São dois dos grandes atrativos da região dos Andes. Envolve um pouco de altitude (4260 metros), mas vale muito a pena. O passeio inclui guia, transporte, café da manhã e almoço`,
+    image: '/img/beneficios/quartodia.png',
+  },
+  {
+    day: '5º DIA',
+    subtitle: 'Geysers el tatio (opcional)',
+    body: `A intensa atividade vulcânica do Chile torna comum encontrar águas termais na região, mas o Atacama guarda um fenômeno único: o Geyser del Tatio. Um espetáculo natural impressionante que merece ser incluído em sua viagem, oferecendo uma experiência singular no deserto.`,
+    image: '/img/beneficios/quintodia.png',
+  },
+  {
+    day: '6º DIA',
+    subtitle: 'San Pedro - Calama',
+    body: `Transfer para o aeroporto e partida.`,
+    image: '/img/beneficios/sextodia.png',
+  },
+];
+
+/* ====== PASSEIOS OPCIONAIS ====== */
+const optionalTours = [
+  'Geyser el tatio - R$ 435 por pessoa',
+  'Cerro Toco - R$ 623 por pessoa',
+  'Vulcão Lascar - R$ 1059 por pessoa',
+  'Valle de la Luna - R$ 346 por pessoa',
+  'Laguna Cejar - R$ 435 por pessoa',
+  'Termas de Puritama - R$199 por pessoa (Não inclui o ingresso das termas)',
+  'Valle del Arco íris - R$ 269 por pessoa (Não inclui o ingresso)',
+  'Rota dos Salares - R$ 387 por pessoa',
+  'Salar do Uyuni - Confira o valor por pessoa',
 ];
 
 export default function TravelPackage() {
   return (
-    <section className="py-20" style={{ backgroundColor: '#A0D3F1' }}>
-      <div className="container mx-auto max-w-[1320px] px-4">
+    <section className="py-8" style={{ backgroundColor: '#F2EA86' }}>
+      <div className="container mx-auto max-w-[1320px] px-2">
         {/* Cabeçalho */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-center mb-14"
+          className="text-center mb-10"
         >
-          <div className="flex items-center justify-center gap-4 mb-5">
+          <div className="flex items-center justify-center gap-4 mb-0">
             <img
               src="/img/beneficios/location2.png"
               alt="Ícone Nosso Pacote"
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
+              className="w-16 h-16 md:w-16 md:h-16 object-contain"
               loading="lazy"
               decoding="async"
             />
             <h2
-              className="font-extrabold"
+              className="font-extrabold text-[35px] md:text-[65px]"
               style={{
                 color: '#FD4F0D',
-                fontSize: '40px',
                 fontFamily: '"Work Sans", sans-serif',
                 lineHeight: 0.9,
                 letterSpacing: '-0.02em',
               }}
             >
-              Nosso Pacote
+              <strong>Nosso Pacote</strong>
             </h2>
           </div>
 
-          <p
-            className="font-bold"
-            style={{
-              color: '#222223',
-              fontFamily: '"Work Sans", sans-serif',
-              fontSize: '18px',
-              lineHeight: 1.05,
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Conheça o Peru com praticidade, <br /> segurança e conforto
-          </p>
+          {/* ===== DESKTOP: versão fixa, NÃO será afetada por edições do mobile ===== */}
+          <div className="hidden md:block mt-3">
+            <p
+              className="max-w-4xl mx-auto text-[18px]"
+              style={{
+                color: '#222223',
+                fontFamily: '"Roboto Mono", monospace',
+                fontWeight: 400, // Roboto Mono Regular
+                lineHeight: 1.15,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              Nosso roteiro foi planejado para que você conheça os principais atrativos da <br />
+              região, combinando paisagens impressionantes e experiências autênticas da cultura <br />
+              local. Uma viagem organizada, com hospedagem confortável e passeios que tornam a <br />
+              experiência no Atacama ainda mais especial.<br />
+            </p>
+            <br />
+            <p
+              className="font-bold text-[18px]"
+              style={{
+                color: '#222223',
+                fontFamily: '"Work Sans", monospace',
+                lineHeight: 1.08,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              <strong>
+                Este é apenas um roteiro sugestão: os passeios podem ser incluídos, alterados ou <br />
+                adaptados conforme o interesse do viajante.
+              </strong>
+            </p>
+          </div>
 
-          <p
-            className="mt-3 max-w-4xl mx-auto"
-            style={{
-              color: '#222223',
-              fontFamily: '"Roboto Mono", monospace',
-              fontSize: '12px',
-              lineHeight: 1.08,
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Nossos pacotes de viagem foram planejados para que você aproveite o melhor do Peru sem
-            preocupações. Uma forma segura e organizada de explorar o país, com hospedagem, passeios
-            e serviços que garantem mais comodidade durante toda a viagem.
-          </p>
+          {/* ===== MOBILE: bloco separado para você editar sem impactar o desktop ===== */}
+          {/* ↓↓↓ MOBILE — EDITE OS PARÁGRAFOS AQUI ↓↓↓ */}
+          <div className="block md:hidden mt-3">
+            <p
+              className="max-w-[95%] mx-auto text-[13px]"
+              style={{
+                color: '#222223',
+                fontFamily: '"Roboto Mono", monospace',
+                fontWeight: 400, // Roboto Mono Regular
+                lineHeight: 1.2,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              Nosso roteiro foi planejado para que você <br></br>
+              conheça os principais atrativos da região, <br></br> 
+              combinando paisagens impressionantes e experiências autênticas da cultura local.
+              Uma viagem organizada, com hospedagem confortável e passeios que tornam a experiência
+              no Atacama ainda mais especial.
+            </p>
+
+            <p
+              className="mt-4 font-bold text-[13px]"
+              style={{
+                color: '#222223',
+                fontFamily: '"Work Sans", monospace',
+                lineHeight: 1.18,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              Este é apenas um roteiro sugestão: os passeios podem ser incluídos, alterados ou
+              adaptados conforme o interesse do viajante.
+            </p>
+          </div>
+          {/* ↑↑↑ MOBILE — EDITE OS PARÁGRAFOS AQUI ↑↑↑ */}
         </motion.div>
 
         {/* ============= DESKTOP (inalterado) ============= */}
@@ -111,9 +194,7 @@ export default function TravelPackage() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: false, amount: 0.45, margin: '-10% 0px -10% 0px' }}
-                  className={`relative flex flex-col items-center gap-8 lg:gap-10 ${
-                    imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                  }`}
+                  className={`relative flex flex-col items-center gap-8 lg:gap-10 ${imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
                 >
                   <motion.div
                     variants={itemVariants(fromLeft)}
@@ -125,24 +206,43 @@ export default function TravelPackage() {
                   <motion.div variants={itemVariants(fromLeft)} className="relative z-10 w-full max-w-[687px]">
                     <div
                       className={`font-extrabold mb-0 ${imageLeft ? 'lg:ml-[0px]' : 'lg:mr-[36px]'}`}
-                      style={{ color: '#FD4F0D', fontSize: '56px', fontFamily: '"Work Sans", sans-serif', lineHeight: 0.9, letterSpacing: '-0.02em' }}
+                      style={{
+                        color: '#FD4F0D',
+                        fontSize: '56px',
+                        fontFamily: '"Work Sans", sans-serif',
+                        lineHeight: 0.9,
+                        letterSpacing: '-0.02em',
+                      }}
                     >
                       {d.day}
                     </div>
 
                     <div
-                      className={`rounded-3xl shadow-xl px-6 py-4 lg:min-h-[110px]
+                      className={`rounded-3xl shadow-xl px-6 py-4 lg:minh-[110px]
                         ${imageLeft ? 'lg:-ml-[48px] lg:pl-[16px]' : 'lg:-mr-[48px] lg:pr-[90px]'}`}
                       style={{ backgroundColor: '#F9F2E1' }}
                     >
                       <h3
                         className="font-extrabold mb-2"
-                        style={{ color: '#FD4F0D', fontSize: '26px', fontFamily: '"Work Sans", sans-serif', lineHeight: 0.95, letterSpacing: '-0.015em' }}
+                        style={{
+                          color: '#FD4F0D',
+                          fontSize: '26px',
+                          fontFamily: '"Work Sans", sans-serif',
+                          lineHeight: 0.95,
+                          letterSpacing: '-0.015em',
+                        }}
                       >
                         {d.subtitle}
                       </h3>
                       <p
-                        style={{ color: '#222223', fontSize: '14px', fontFamily: '"Roboto Mono", monospace', lineHeight: 1.08, letterSpacing: '-0.01em' }}
+                        style={{
+                          color: '#222223',
+                          fontSize: '15px',
+                          fontFamily: '"Roboto Mono", monospace',
+                          fontWeight: 400, // Roboto Mono Regular
+                          lineHeight: 1.08,
+                          letterSpacing: '-0.01em',
+                        }}
                       >
                         {d.body}
                       </p>
@@ -154,7 +254,7 @@ export default function TravelPackage() {
           </div>
         </div>
 
-        {/* ============= MOBILE (imagem por cima; texto mais abaixo dentro do balão) ============= */}
+        {/* ============= MOBILE (imagem por cima; texto no balão) ============= */}
         <div className="md:hidden">
           <div className="flex flex-col items-center gap-6">
             {days.map((d) => (
@@ -169,31 +269,51 @@ export default function TravelPackage() {
                 {/* DIA */}
                 <div
                   className="font-extrabold text-center"
-                  style={{ color: '#FD4F0D', fontFamily: '"Work Sans", sans-serif', fontSize: '40px', lineHeight: 0.9, letterSpacing: '-0.02em' }}
+                  style={{
+                    color: '#FD4F0D',
+                    fontFamily: '"Work Sans", sans-serif',
+                    fontSize: '45px',
+                    lineHeight: 0.9,
+                    letterSpacing: '-0.02em',
+                  }}
                 >
                   {d.day}
                 </div>
 
                 {/* Stack imagem + balão */}
                 <div className="relative w-[330px]">
-                  {/* Imagem (por cima) */}
+                  {/* Imagem */}
                   <div className="absolute top-0 left-0 right-0 h-[240px] rounded-[16px] overflow-hidden shadow-xl z-20">
                     <img src={d.image} alt={d.subtitle} className="w-full h-full object-cover" />
                   </div>
 
-                  {/* Balão (mesma posição) com conteúdo BEM mais abaixo */}
+                  {/* Balão */}
                   <div
                     className="relative z-10 rounded-[18px] shadow-md px-4 pt-16 pb-4 mt-[200px]"
                     style={{ backgroundColor: '#F9F2E1' }}
                   >
                     <h3
                       className="font-extrabold mb-2"
-                      style={{ color: '#FD4F0D', fontFamily: '"Work Sans", sans-serif', fontSize: '18px', lineHeight: 0.95, letterSpacing: '-0.015em' }}
+                      style={{
+                        color: '#FD4F0D',
+                        fontFamily: '"Work Sans", sans-serif',
+                        fontSize: '18px',
+                        lineHeight: 0.95,
+                        letterSpacing: '-0.015em',
+                      }}
                     >
                       {d.subtitle}
                     </h3>
                     <p
-                      style={{ color: '#222223', fontFamily: '"Roboto Mono", monospace', fontSize: '12px', lineHeight: 1.12, letterSpacing: '-0.01em', textAlign: 'left' }}
+                      style={{
+                        color: '#222223',
+                        fontFamily: '"Roboto Mono", monospace',
+                        fontWeight: 400, // Roboto Mono Regular
+                        fontSize: '12px',
+                        lineHeight: 1.12,
+                        letterSpacing: '-0.01em',
+                        textAlign: 'left',
+                      }}
                     >
                       {d.body}
                     </p>
@@ -204,6 +324,62 @@ export default function TravelPackage() {
           </div>
         </div>
 
+        {/* ========= PASSEIOS OPCIONAIS ========= */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.45 }}
+          className="mt-20"
+        >
+          {/* Título (MOBILE 45, DESKTOP 60) */}
+          <h3
+            className="text-center font-extrabold mb-6 text-[45px] md:text-[60px]"
+            style={{
+              color: '#FD4F0D',
+              fontFamily: '"Work Sans", sans-serif',
+              lineHeight: 0.9,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            <strong>Passeios Opcionais</strong>
+          </h3>
+
+          {/* Balão no mesmo estilo dos dias */}
+          <div
+            className="mx-auto rounded-3xl shadow-xl"
+            style={{ maxWidth: 680, backgroundColor: '#F9F2E1' }}
+          >
+            <div className="px-8 py-6">
+              <ul className="space-y-1">
+                {optionalTours.map((t, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <img
+                      src="/img/beneficios/localizacao.png"
+                      alt="Localização"
+                      className="mt-[0px] w-4 h-4 object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span
+                      className="text-[13px] md:text-[18px]"
+                      style={{
+                        color: '#222223',
+                        fontFamily: '"Work Sans", sans-serif',
+                        fontWeight: 800,
+                        lineHeight: 1.15,
+                        letterSpacing: '-0.01em',
+                        textAlign: 'left',
+                      }}
+                    >
+                      {t}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

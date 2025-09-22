@@ -37,7 +37,7 @@ const AboutUs = () => {
       imgSrc: '/img/beneficios/cifrao.png',
       title: 'Viaje mais, pagando menos',
       description:
-        'Nada de “bom demais pra ser verdade”. Pesquisamos tudo para te dar a melhor opção de verdade.',
+        'A gente não trabalha com pacotes que parecem bons demais pra ser verdade. O menor preço é garantido porque pesquisamos tudo, com esforço e inteligência, até achar a melhor opção de verdade.',
     },
   ];
 
@@ -63,13 +63,13 @@ const AboutUs = () => {
             </h1>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="mt-3 md:mt-0">
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="mt-10 md:mt-0">
             <div className="space-y-3 md:space-y-4 text-[12px] md:text-[15px] leading-[1.28] md:leading-[1.35]" style={{ color: '#F9F2E1', letterSpacing: '0.1px' }}>
               <p>“A Mundo Pró nasceu da nossa inquietação. Já trabalhávamos com turismo, mas sentíamos que faltava algo para entregar uma experiência que saísse da rotina de uma agência tradicional. Focamos em criar uma identidade própria, com o objetivo de propor algo diferente, não encontrávamos espaço para isso.”</p>
               <p>“A vontade de crescer e de ser referência no turismo foi o combustível para a gente. Fez nascer o desejo em nós: criar uma agência com o nosso jeito, com conteúdo verdadeiramente conectado com quem viaja.”</p>
               <p>“Com cuidado real e atenção aos detalhes, transformamos o modo como as pessoas enxergam o ato de viajar. Hoje, seguimos crescendo com propósito, leveza e consistência.”</p>
             </div>
-            <div className="mt-4 md:mt-6 flex justify-end">
+            <div className="mt-4 md:mt-4 flex justify-end">
               <img src="/img/beneficios/assinatura.png" alt="Assinatura" className="h-[20px] md:h-[26px] w-auto object-contain" />
             </div>
           </motion.div>
@@ -143,7 +143,7 @@ const AboutUs = () => {
                 style={{ backgroundColor: '#A0D3F1' }}
               >
                 <div className="flex items-start gap-3 md:gap-4">
-                  <img src={card.imgSrc} alt="" className="w-[52px] h-[52px] md:w-[70px] md:h-[70px] object-contain shrink-0" />
+                  <img src={card.imgSrc} alt="" className="w-[42px] h-[42px] md:w-[70px] md:h-[70px] object-contain shrink-0" />
                   <div className="flex-1">
                     <h4
                       className="mb-2 md:mb-5 font-extrabold"

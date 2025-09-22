@@ -35,8 +35,8 @@ export default function ImpactSection() {
         aria-hidden="true"
       >
         <img
-          src="/img/TAOLEGAL.png"   /* imagem atual SOMENTE DESKTOP */
-          alt=""
+          src="/img/taolegalatacama.png"   /* imagem atual SOMENTE DESKTOP */
+          alt="tao legal desktop"
           className="w-full h-full object-cover"
           loading="lazy"
           decoding="async"
@@ -54,7 +54,7 @@ export default function ImpactSection() {
         aria-hidden="true"
       >
         <img
-          src= "/img/taolegalmobile.png"         /* nova imagem SOMENTE MOBILE */
+          src= "/img/taolegalatacamamobile.png"         /* nova imagem SOMENTE MOBILE */
           alt=""
           className="w-full h-full object-cover"
           loading="lazy"
