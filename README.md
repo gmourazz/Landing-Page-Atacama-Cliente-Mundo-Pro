@@ -1,6 +1,6 @@
 🌍 Landing Page – Mundo Pró
 
-Landing Page criada para a agência Mundo Pró, com intuito de divulgar viagens para o Peru.
+Landing Page criada para a agência Mundo Pró, com intuito de divulgar viagens para o Atacama.
 A página foi desenvolvida para ser intuitiva, com UI/UX moderno, totalmente responsiva e SEO otimizada.
 
 🚀 Tecnologias Utilizadas
