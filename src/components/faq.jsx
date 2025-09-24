@@ -4,23 +4,22 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const toggleItem = (i) => setOpenIndex(openIndex === i ? null : i);
 
-  const toggleItem = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  // Quebra por parágrafos e aplica tipografia (tamanho compacto opcional)
-  const renderAnswer = (text, small = false) => {
+  // renderizador com controle de tamanho da fonte
+  const renderAnswer = (text, fontSizePx) => {
     const parts = String(text).split(/\n\s*\n/);
     return parts.map((chunk, i) => (
       <p
         key={i}
         style={{
-          color: '#000000',
-          fontSize: small ? '11px' : '14px',
-          textAlign: 'center',
+          color: '#000',
+          fontFamily: '"Roboto Mono", monospace',
+          fontWeight: 400,
+          fontSize: `${fontSizePx}px`,
           lineHeight: 1.35,
           letterSpacing: '0.1px',
+          textAlign: 'left',
           marginTop: i === 0 ? 0 : '1.25em',
         }}
       >
@@ -29,127 +28,75 @@ const FAQ = () => {
     ));
   };
 
-  // Cartõezinhos dos circuitos (grid responsivo)
-  const renderCircuits = () => (
-    <div className="w-full max-w-[980px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
-      {[
-        {
-          title: 'Circuito 1 — Clássico',
-          text:
-            'Roteiro básico com acesso à parte superior de Machu Picchu. A vista mais “postal”, ideal para fotos panorâmicas.',
-        },
-        {
-          title: 'Circuito 2 — Completo',
-          text:
-            'O mais procurado. Inclui a rota do Circuito 1 e áreas adicionais como Praça Principal e Templo do Sol. Visão mais completa.',
-        },
-        {
-          title: 'Circuito 3 — Alternativo',
-          text:
-            'Focado na parte baixa. Não tem o mesmo ângulo panorâmico, mas ainda rende fotos com a cidadela ao fundo.',
-        },
-      ].map((item, i) => (
-        <div
-          key={i}
-          className="rounded-xl p-4"
-          style={{
-            background: '#FFFFFF',
-            border: '1px solid rgba(0,0,0,0.08)',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
-          }}
-        >
-          <h5
-            className="mb-2"
-            style={{
-              fontFamily: '"Work Sans", sans-serif',
-              fontWeight: 700,
-              fontSize: '1px',
-              color: '#FD4F0D',
-              textAlign: 'left',
-            }}
-          >
-            {item.title}
-          </h5>
-          <p
-            style={{
-              color: '#000000',
-              fontSize: '15px',
-              lineHeight: 1.35,
-              textAlign: 'left',
-              letterSpacing: '0.1px',
-            }}
-          >
-            {item.text}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-
   const faqs = [
     {
       question: 'Essa viagem é em excursão?',
       answer:
-        'Não, nossa viagem não é em grupo fechado, o que significa que você terá a liberdade de explorar e aproveitar cada momento conforme suas preferências. Durante os passeios, você estará acompanhado por um guia especializado que irá fornecer informações e orientações, garantindo uma experiência enriquecedora.\n\nMuitas clientes já viajaram sozinhas e destacam que se sentiram muito seguras, tanto em Cusco quanto em Machu Picchu. Além disso, nossa equipe e guias estarão sempre prontos para auxiliar em qualquer situação.',
+        'Não, nossa viagem não é em grupo fechado, o que significa que você terá a liberdade de explorar e aproveitar cada momento conforme suas preferências. Nossos roteiros não são aquelas "caravanas" em ônibus e com guia que passam correndo pelo ponto turístico e você não tem nem tempo de bater foto. Não se preocupe se você nunca viajou ou se não fala inglês, estaremos auxiliando em tudo.',
     },
     {
-      question: 'Os ingresso estão inclusos?',
+      question: 'Os ingressos estão inclusos?',
       answer:
         'Machu Picchu já inclui ingresso. Não inclui ingresso da Montanha Colorida (30 soles), o Boleto Turístico do Vale Sagrado (90 soles) e o ingresso da Lagoa Humantay (20 soles).',
     },
     {
       question: 'Que dinheiro devo levar?',
       answer:
-        'Machu Picchu já inclui ingresso. Não inclui ingresso da Montanha Colorida (30 soles), o Boleto Turístico do Vale Sagrado (90 soles) e o ingresso da Lagoa Humantay (20 soles).',
+        'Leve uma combinação de cartão e dinheiro em espécie para despesas locais. Para entradas, lembranças e pequenos gastos, o dinheiro local costuma facilitar. Em muitos lugares, cartões são aceitos normalmente.',
     },
     {
       question: 'Os transportes até pontos turísticos estão inclusos?',
       answer:
-        'Sim! Todos os passeios incluem transporte desde o hotel até o destino visitado. No retorno, os tours costumam finalizar na Plaza de Armas, o coração de Cusco.',
+        'Sim! Todos os passeios incluem transporte desde o hotel até o destino visitado. No retorno, os tours costumam finalizar na Plaza de Armas (ou ponto central do destino).',
     },
     {
       question: 'O pacote inclui transfer do aeroporto ao hotel?',
       answer:
-        'Os gastos diários variam. Em média, considere 100 a 150 soles por dia (aprox. R$ 130 a R$ 200).',
+        'Podemos incluir transfers privativos ou compartilhados, de acordo com sua preferência e orçamento. Se preferir, também damos orientações detalhadas de como chegar de transporte público.',
     },
     {
-      question: 'Há alguma restrição de idade para participar das atividades no Deserto do Atacama?',
+      question:
+        'Há alguma restrição de idade para participar das atividades no Deserto do Atacama?',
       answer:
-        'A estação seca (maio a setembro) tem clima mais estável e menos chuvas — ideal para passeios e fotos.',
+        'Alguns passeios envolvem altitude e trilhas. Para crianças pequenas ou idosos com mobilidade reduzida, avaliamos necessidades e limitações antes de confirmar para garantir conforto e segurança.',
     },
     {
       question: 'Qual o gasto médio com alimentação?',
       answer:
-        'Sim. Com precauções normais, é um destino seguro. Nossa equipe local dá suporte durante a viagem.',
+        'Perfil Econômico: 20–40 € por dia (fast food, mercado, restaurantes simples). Transporte público cerda de 10 € por dia.\n\nPerfil Médio: Entre 50–100 € por dia (restaurantes bem avaliados; prato médio 15 €). Transporte cerca de 20–40 € por dia (Uber/táxi) são as opções de transporte.\n\nPerfil de Luxo: acima de 150 € por dia (restaurantes premiados, experiências especiais).  Depende mais de opções privativas, podendo variar de 50–100 € por dia.',
     },
     {
       question: 'Como funciona o suporte da agência durante a viagem?',
       answer:
-        'Viajar sozinha é totalmente possível e seguro no Peru. Se optar por quarto single, o pacote tem um acréscimo de cerca de 10% em relação ao valor por pessoa em quarto duplo.\n\nMuitas clientes já viajaram sozinhas e destacam que se sentiram muito seguras, tanto em Cusco quanto em Machu Picchu. Além disso, nossa equipe e guias estarão sempre prontos para auxiliar em qualquer situação.',
+        'Aqui na Mundo Pró, você não receberá um "Boa viagem e tchau". Estaremos com você durante toda a viagem. Criamos um grupo de WhatsApp com o atendente e uma pessoa de suporte para acompanhar tudo. Adoramos receber notícias e fotos da sua experiência!',
     },
     {
-      question: 'É possível personalizar o itinerário do pacote de acordo com as preferências do cliente?',
-      answer: '__CIRCUITOS__',
-    },
-    {
-      question: 'Quais são os documentos necessários para viajar para o Atacama?',
+      question:
+        'É possível personalizar o itinerário do pacote de acordo com as preferências do cliente?',
       answer:
-        'Sim, podemos aumentar ou diminuir noites no Peru e incluir destinos como Lima.',
+        'Sim. O pacote enviado é uma sugestão otimizada. Podemos mudar a ordem, incluir ou excluir cidades e refazer a simulação conforme o seu interesse.',
+    },
+    {
+      question:
+        'Quais são os documentos necessários para viajar para o Atacama?',
+      answer:
+        'Passaporte válido ou RG em bom estado emitido há menos de 10 anos (para países do Mercosul). Recomendamos também seguro-viagem e comprovantes de hospedagem/voos.',
     },
     {
       question: 'Qual é a melhor época do ano para visitar o Atacama?',
       answer:
-        'Passaporte válido ou RG emitido há menos de 10 anos.',
+        'De maio a setembro (estação mais seca) o clima é mais estável e com menos chuvas — excelente para passeios e fotos. Em outras épocas, também é possível, apenas com mais atenção às condições climáticas.',
     },
     {
-      question: 'Quais são os métodos de pagamento aceitos para o pacote de viagem?',
+      question:
+        'Quais são os métodos de pagamento aceitos para o pacote de viagem?',
       answer:
-        'Até 10x sem juros no cartão de crédito (consulte condições).',
+        'Depende da companhia aérea/hotelaria. Algumas parcelam no cartão em 5–6x e outras em até 10x. Também temos opção de parcelamento no boleto. Consulte-nos para as condições do seu pacote.',
     },
     {
       question: 'Mas moro longe da agência, como vou fazer o pagamento?',
       answer:
-        'Para crianças pequenas ou idosos com mobilidade reduzida, avalie necessidades/limitações antes de confirmar.',
+        'Nosso atendimento é 100% online e seguro. Enviamos tudo digitalmente e você pode concluir o pagamento à distância, com suporte em todas as etapas.',
     },
   ];
 
@@ -160,7 +107,7 @@ const FAQ = () => {
       style={{ backgroundColor: '#A0D3F1', fontFamily: '"Roboto Mono", monospace' }}
     >
       <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-        {/* ===== CABEÇALHO DESKTOP (inalterado) ===== */}
+        {/* Cabeçalho desktop */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -186,7 +133,7 @@ const FAQ = () => {
           </div>
         </motion.div>
 
-        {/* ===== CABEÇALHO MOBILE (igual ao print) ===== */}
+        {/* Cabeçalho mobile */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -208,14 +155,10 @@ const FAQ = () => {
           </div>
         </motion.div>
 
-        {/* ===== LISTA DESKTOP (inalterada) ===== */}
+        {/* Lista desktop */}
         <div className="space-y-4 mx-auto hidden md:block" style={{ width: '1154px' }}>
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
-            const isCircuits =
-              faq.question.toLowerCase().includes('circuitos de machu picchu') ||
-              faq.answer === '__CIRCUITOS__';
-
             return (
               <div key={index} className="rounded-2xl overflow-hidden shadow-md" style={{ width: '1154px' }}>
                 {/* Pergunta */}
@@ -238,7 +181,8 @@ const FAQ = () => {
                       color: '#FFFFFF',
                       fontFamily: '"Work Sans", sans-serif',
                       fontWeight: 700,
-                      fontSize: '30px',
+                      fontSize: '26px', // título desktop 26
+                      lineHeight: 1.05,
                     }}
                   >
                     {faq.question}
@@ -268,7 +212,7 @@ const FAQ = () => {
                       id={`faq-content-${index}`}
                       key="content"
                       initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: '239px', opacity: 1 }}
+                      animate={{ height: 'auto', opacity: 1 }}   // deixa ajustar conforme texto 18px
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
                       style={{
@@ -277,9 +221,9 @@ const FAQ = () => {
                         overflow: 'hidden',
                       }}
                     >
-                      <div className="h-full w-full flex items-center justify-center px-6">
-                        <div className="w-full" style={{ maxWidth: isCircuits ? '1000px' : '920px' }}>
-                          {isCircuits ? renderCircuits() : renderAnswer(faq.answer)}
+                      <div className="w-full px-6 py-5 flex justify-center">
+                        <div className="w-full" style={{ maxWidth: '920px' }}>
+                          {renderAnswer(faq.answer, 15 /* desktop body 18 */)}
                         </div>
                       </div>
                     </motion.div>
@@ -290,20 +234,16 @@ const FAQ = () => {
           })}
         </div>
 
-        {/* ===== LISTA MOBILE (layout do print) ===== */}
+        {/* Lista mobile */}
         <div className="md:hidden px-4 space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
-            const isCircuits =
-              faq.question.toLowerCase().includes('circuitos de machu picchu') ||
-              faq.answer === '__CIRCUITOS__';
-
             return (
               <div key={index} className="rounded-2xl overflow-hidden shadow-md">
                 {/* Pergunta */}
                 <button
                   onClick={() => toggleItem(index)}
-                  className="relative w-full flex items-center justify-between px-4 h-14 rounded-2xl"
+                  className="relative w-full flex items-center justify-between px-4 h-16 rounded-2xl"
                   style={{ backgroundColor: '#FD4F0D' }}
                   aria-expanded={isOpen}
                   aria-controls={`m-faq-content-${index}`}
@@ -313,7 +253,7 @@ const FAQ = () => {
                     style={{
                       color: '#FFFFFF',
                       fontFamily: '"Work Sans", sans-serif',
-                      fontSize: '14px',
+                      fontSize: '15px', // título mobile 15
                       lineHeight: 1.1,
                     }}
                   >
@@ -339,14 +279,8 @@ const FAQ = () => {
                       className="overflow-hidden rounded-2xl"
                       style={{ backgroundColor: '#FFF2A6' }}
                     >
-                      <div className="px-4 py-3">
-                        {isCircuits ? (
-                          renderCircuits()
-                        ) : (
-                          <div className="text-[#000]">
-                            {renderAnswer(faq.answer, true /* small */)}
-                          </div>
-                        )}
+                      <div className="px-4 py-4">
+                        {renderAnswer(faq.answer, 12 /* mobile body 14 */)}
                       </div>
                     </motion.div>
                   )}

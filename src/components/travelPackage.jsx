@@ -22,11 +22,11 @@ const itemVariants = (fromLeft) => ({
     opacity: 1,
     x: 0,
     scale: 1,
-    transition: { type: 'tween', ease: [0.22, 1, 0.36, 1], duration: 0.5 * SPEED },
+    transition: { type: 'tween', ease: [0.22, 1, 0.36, 1], duration: 0.3 * SPEED },
   },
 });
 
-/* ====== REMOVE O 7º DIA ====== */
+/* ====== DATA (6 dias) ====== */
 const days = [
   {
     day: '1º DIA',
@@ -66,6 +66,21 @@ const days = [
   },
 ];
 
+/* ====== TAMANHOS EXATOS DOS BALÕES (desktop) ====== */
+const BALLOON_SIZES = [
+  { w: 736, h: 119 }, // dia 1
+  { w: 736, h: 137 }, // dia 2
+  { w: 736, h: 318 }, // dia 3
+  { w: 738, h: 225 }, // dia 4
+  { w: 736, h: 266 }, // dia 5
+  { w: 738, h: 160 }, // dia 6
+];
+
+/* Sobreposição do balão com a foto (desktop) */
+const OVERLAP_PX = 84;
+/* Nos dias 1,3,5 (imagem à esquerda) empurrar texto para fora da área sobreposta */
+const NEED_EXTRA_PADDING = new Set([0, 2, 4]);
+
 /* ====== PASSEIOS OPCIONAIS ====== */
 const optionalTours = [
   'Geyser el tatio - R$ 435 por pessoa',
@@ -99,7 +114,7 @@ export default function TravelPackage() {
               decoding="async"
             />
             <h2
-              className="font-extrabold text-[35px] md:text-[65px]"
+              className="font-extrabold text-[32px] md:text-[65px]"
               style={{
                 color: '#FD4F0D',
                 fontFamily: '"Work Sans", sans-serif',
@@ -111,14 +126,14 @@ export default function TravelPackage() {
             </h2>
           </div>
 
-          {/* ===== DESKTOP: versão fixa, NÃO será afetada por edições do mobile ===== */}
+          {/* Desktop copy */}
           <div className="hidden md:block mt-3">
             <p
               className="max-w-4xl mx-auto text-[18px]"
               style={{
                 color: '#222223',
                 fontFamily: '"Roboto Mono", monospace',
-                fontWeight: 400, // Roboto Mono Regular
+                fontWeight: 400,
                 lineHeight: 1.15,
                 letterSpacing: '-0.01em',
               }}
@@ -145,21 +160,20 @@ export default function TravelPackage() {
             </p>
           </div>
 
-          {/* ===== MOBILE: bloco separado para você editar sem impactar o desktop ===== */}
-          {/* ↓↓↓ MOBILE — EDITE OS PARÁGRAFOS AQUI ↓↓↓ */}
-          <div className="block md:hidden mt-3">
+          {/* Mobile copy */}
+          <div className="block md:hidden mt-2">
             <p
-              className="max-w-[95%] mx-auto text-[13px]"
+              className="max-w-[95%] mx-auto text-[12px]"
               style={{
                 color: '#222223',
                 fontFamily: '"Roboto Mono", monospace',
-                fontWeight: 400, // Roboto Mono Regular
-                lineHeight: 1.2,
+                fontWeight: 400,
+                lineHeight: 1.1,
                 letterSpacing: '-0.01em',
               }}
             >
-              Nosso roteiro foi planejado para que você <br></br>
-              conheça os principais atrativos da região, <br></br> 
+              Nosso roteiro foi planejado para que você <br />
+              conheça os principais atrativos da região, <br />
               combinando paisagens impressionantes e experiências autênticas da cultura local.
               Uma viagem organizada, com hospedagem confortável e passeios que tornam a experiência
               no Atacama ainda mais especial.
@@ -178,15 +192,23 @@ export default function TravelPackage() {
               adaptados conforme o interesse do viajante.
             </p>
           </div>
-          {/* ↑↑↑ MOBILE — EDITE OS PARÁGRAFOS AQUI ↑↑↑ */}
         </motion.div>
 
-        {/* ============= DESKTOP (inalterado) ============= */}
+        {/* ============= DESKTOP (balões com tamanhos exatos) ============= */}
         <div className="hidden md:block">
           <div className="space-y-16">
             {days.map((d, i) => {
               const imageLeft = i % 2 === 0;
               const fromLeft = imageLeft;
+              const { w, h } = BALLOON_SIZES[i];
+
+              // padding do balão
+              let padLeft = 24;
+              let padRight = 24;
+              if (imageLeft && NEED_EXTRA_PADDING.has(i)) {
+                padLeft = 24 + OVERLAP_PX; // empurra texto quando a foto está à esquerda
+              }
+
               return (
                 <motion.div
                   key={`desk-${d.day}`}
@@ -194,18 +216,33 @@ export default function TravelPackage() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: false, amount: 0.45, margin: '-10% 0px -10% 0px' }}
-                  className={`relative flex flex-col items-center gap-8 lg:gap-10 ${imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
+                  className={`relative flex flex-col items-center gap-0 lg:gap-0 ${
+                    imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  }`}
                 >
+                  {/* IMAGEM — 550x400 fixo */}
                   <motion.div
                     variants={itemVariants(fromLeft)}
-                    className="relative z-20 w-full max-w-[550px] h-[400px] rounded-[24px] overflow-hidden shadow-2xl"
+                    className="relative z-20 rounded-[24px] overflow-hidden shadow-2xl"
+                    style={{ width: 750, height: 400 }}
                   >
                     <img src={d.image} alt={d.subtitle} className="w-full h-full object-cover" />
                   </motion.div>
 
-                  <motion.div variants={itemVariants(fromLeft)} className="relative z-10 w-full max-w-[687px]">
+                  {/* TEXTO — balão com tamanho exato */}
+                  <motion.div
+                    variants={itemVariants(fromLeft)}
+                    className="relative z-10 w-full max-w-[687px]"
+                    style={{
+                      ...(imageLeft ? { marginLeft: -84 } : { marginRight: -1 }) // encosta atrás da imagem
+                    }}
+                  >
+
+                    {/* número do dia */}
                     <div
-                      className={`font-extrabold mb-0 ${imageLeft ? 'lg:ml-[0px]' : 'lg:mr-[36px]'}`}
+                      className={`font-extrabold mb-0 ${
+                        imageLeft ? 'lg:ml-[116px]' : 'lg:mr-[36px]'
+                      }`}
                       style={{
                         color: '#FD4F0D',
                         fontSize: '56px',
@@ -217,11 +254,21 @@ export default function TravelPackage() {
                       {d.day}
                     </div>
 
-                    <div
-                      className={`rounded-3xl shadow-xl px-6 py-4 lg:minh-[110px]
-                        ${imageLeft ? 'lg:-ml-[48px] lg:pl-[16px]' : 'lg:-mr-[48px] lg:pr-[90px]'}`}
-                      style={{ backgroundColor: '#F9F2E1' }}
-                    >
+                      <div
+                        className="rounded-3xl shadow-xl"
+                        style={{
+                          backgroundColor: '#F9F2E1',
+                          width: `${w}px`,
+                          minHeight: `${h}px`,
+                          paddingLeft: `${padLeft}px`,
+                          paddingRight: `${padRight}px`,
+                          paddingTop: '22px',
+                          paddingBottom: '20px',
+                          // ❌ nada de marginLeft/marginRight aqui
+                        }}
+                      >
+
+
                       <h3
                         className="font-extrabold mb-2"
                         style={{
@@ -239,8 +286,8 @@ export default function TravelPackage() {
                           color: '#222223',
                           fontSize: '15px',
                           fontFamily: '"Roboto Mono", monospace',
-                          fontWeight: 400, // Roboto Mono Regular
-                          lineHeight: 1.08,
+                          fontWeight: 400,
+                          lineHeight: 1.18,
                           letterSpacing: '-0.01em',
                         }}
                       >
@@ -254,7 +301,7 @@ export default function TravelPackage() {
           </div>
         </div>
 
-        {/* ============= MOBILE (imagem por cima; texto no balão) ============= */}
+        {/* ============= MOBILE (igual ao seu) ============= */}
         <div className="md:hidden">
           <div className="flex flex-col items-center gap-6">
             {days.map((d) => (
@@ -266,7 +313,6 @@ export default function TravelPackage() {
                 viewport={{ once: true, amount: 0.35 }}
                 className="w-full flex flex-col items-center"
               >
-                {/* DIA */}
                 <div
                   className="font-extrabold text-center"
                   style={{
@@ -280,14 +326,11 @@ export default function TravelPackage() {
                   {d.day}
                 </div>
 
-                {/* Stack imagem + balão */}
                 <div className="relative w-[330px]">
-                  {/* Imagem */}
                   <div className="absolute top-0 left-0 right-0 h-[240px] rounded-[16px] overflow-hidden shadow-xl z-20">
                     <img src={d.image} alt={d.subtitle} className="w-full h-full object-cover" />
                   </div>
 
-                  {/* Balão */}
                   <div
                     className="relative z-10 rounded-[18px] shadow-md px-4 pt-16 pb-4 mt-[200px]"
                     style={{ backgroundColor: '#F9F2E1' }}
@@ -308,7 +351,7 @@ export default function TravelPackage() {
                       style={{
                         color: '#222223',
                         fontFamily: '"Roboto Mono", monospace',
-                        fontWeight: 400, // Roboto Mono Regular
+                        fontWeight: 400,
                         fontSize: '12px',
                         lineHeight: 1.12,
                         letterSpacing: '-0.01em',
@@ -332,7 +375,6 @@ export default function TravelPackage() {
           transition={{ duration: 0.45 }}
           className="mt-20"
         >
-          {/* Título (MOBILE 45, DESKTOP 60) */}
           <h3
             className="text-center font-extrabold mb-6 text-[45px] md:text-[60px]"
             style={{
@@ -345,19 +387,24 @@ export default function TravelPackage() {
             <strong>Passeios Opcionais</strong>
           </h3>
 
-          {/* Balão no mesmo estilo dos dias */}
+          {/* Desktop: 863 x 300 | Mobile: fluido */}
           <div
-            className="mx-auto rounded-3xl shadow-xl"
-            style={{ maxWidth: 680, backgroundColor: '#F9F2E1' }}
+            className="mx-auto rounded-3xl shadow-xl md:px-0 md:py-0 px-6 py-5"
+            style={{
+              backgroundColor: '#F9F2E1',
+              width: '100%',
+              maxWidth: 863,
+              minHeight: 300,
+            }}
           >
-            <div className="px-8 py-6">
+            <div className="px-4 md:px-8 py-4 md:py-6">
               <ul className="space-y-1">
                 {optionalTours.map((t, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <img
                       src="/img/beneficios/localizacao.png"
                       alt="Localização"
-                      className="mt-[0px] w-4 h-4 object-contain"
+                      className="mt-[2px] w-4 h-4 object-contain"
                       loading="lazy"
                       decoding="async"
                     />

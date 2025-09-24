@@ -19,14 +19,13 @@ const Header = () => {
         <div className="container px-2 md:px-0">
           <div className="flex items-center justify-between py-3 md:py-4">
             {/* LOGO — encostada à esquerda (desktop volta a -ml-20; mobile sem deslocar) */}
-      <div className="flex items-center md:-ml-12"> {/* era md:-ml-20 */}
-          <img
-          src="/img/logomundopro.png"
-          alt="Mundo Pró Viagens"
-          className="h-20 md:h-30 object-contain block"
-          />
-      </div>
-
+            <div className="flex items-center md:-ml-0"> {/* era md:-ml-20 */}
+              <img
+                src="/img/logomundopro.png"
+                alt="Mundo Pró Viagens"
+                className="h-20 md:h-30 object-contain block"
+              />
+            </div>
 
             {/* Botão Mobile */}
             <motion.button
