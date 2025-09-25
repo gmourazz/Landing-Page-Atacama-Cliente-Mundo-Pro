@@ -98,7 +98,7 @@ const subtitleMob = {
 };
 const bodyMob = {
   color: "#222223",
-  fontFamily: '"Roboto Mono", monospace",
+  fontFamily: '"Roboto Mono", monospace', // <- corrigido aqui
   fontSize: "12px",
   fontWeight: 400,
   lineHeight: 1.18,
@@ -107,9 +107,9 @@ const bodyMob = {
   margin: 0,
 };
 
-/* === NOVO: deslocamento independente para dias ímpares e pares (via translateX) === */
-const SHIFT_TITLE_LEFT  = 26;  // dias 1,3,5... (imagem à esquerda)  -> valor em px (negativo p/ esquerda)
-const SHIFT_TITLE_RIGHT = 30;  // dias 2,4,6... (imagem à direita)   -> valor em px (negativo p/ esquerda)
+/* === deslocamento por lado (via translateX) === */
+const SHIFT_TITLE_LEFT  = 26;  // dias 1,3,5... (imagem à esquerda)
+const SHIFT_TITLE_RIGHT = 26;  // dias 2,4,6... (imagem à direita)
 
 export default function TravelPackage() {
   return (
@@ -159,7 +159,7 @@ export default function TravelPackage() {
                       className="font-extrabold mb-0"
                       style={{
                         ...titleDesk,
-                        margin: 0, // evita interferência
+                        margin: 0,
                         transform: `translateX(${imageLeft ? SHIFT_TITLE_LEFT : SHIFT_TITLE_RIGHT}px)`,
                       }}
                     >
@@ -207,7 +207,7 @@ export default function TravelPackage() {
                   viewport={{ once: true, amount: 0.35 }}
                   className="w-full flex flex-col items-center"
                 >
-                  {/* Dia (se quiser também mover no mobile, adicione translateX aqui) */}
+                  {/* Dia */}
                   <div className="font-extrabold text-center" style={titleMob}>
                     {d.day}
                   </div>
